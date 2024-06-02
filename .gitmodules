@@ -1,0 +1,3 @@
+[submodule "solidity-course/foundry-f23/foundry-fund-me-f23/lib/chainlink-brownie-contracts"]
+	path = solidity-course/foundry-f23/foundry-fund-me-f23/lib/chainlink-brownie-contracts
+	url = https://github.com/smartcontractkit/chainlink-brownie-contracts
