@@ -1,33 +1,30 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-/*We want to test that our that our contracts are doing what we want them to do - to do this we can put them through `test` contracts In Foundry, a smart contract development framework for Ethereum, assertEq is a function used in tests to assert that two values are equal. Foundry uses the Forge testing framework, which includes various assertion functions to help verify the behavior of smart contracts.*/ 
-
-import {Test, console} from "forge-std/Test.sol"; // file that helps us test out contract, it inherits all the functionality of the `Test.sol` contract
-import {FundMe} from "../../src/FundMe.sol"; // we want to test that our `Fundme.sol` contract is doing what it is meant to do - so we test it in a .t.sol file and we need to import it
+import {Test, console} from "forge-std/Test.sol"; 
+import {FundMe} from "../../src/FundMe.sol"; 
 import { DeployFundMe } from "../../script/DeployFundMe.s.sol";
 
-contract FundMeTest is Test { // inherting from the imported test.sol
+contract FundMeTest is Test { 
 
-    FundMe fundMe; // state variable called `fundMe` that inherits all the functionality of `FundMe.sol`
+    FundMe fundMe; 
 
     address USER = makeAddr("user"); // another cheatcode `makeAddr` when we pass in a name it will  give is an address
 
     uint256 constant SEND_VALUE = 0.1 ether;
-    uint256 constant STARTING_BALANCE = 10 ether; // our fake USER needs fake money
-    uint256 constant GAS_PRICE = 1; // simulating the gas price in our 
+    uint256 constant STARTING_BALANCE = 10 ether; 
+    uint256 constant GAS_PRICE = 1; 
 
 
-    function setUp() external { // the `setUp` function is  the frist thing that we do and it is in here that we deploy our contract that is be tested The setUp function initializes the FundMe contract before each test
-        //fundMe = new FundMe(0x694AA1769357215DE4FAC081bf1f309aDC325306); // 
+    function setUp() external { 
+        //fundMe = new FundMe(0x694AA1769357215DE4FAC081bf1f309aDC325306); 
         DeployFundMe deployFundMe = new DeployFundMe();
         fundMe = deployFundMe.run();
-        vm.deal(USER, STARTING_BALANCE); // here we are giving our fake USER the fake money
+        vm.deal(USER, STARTING_BALANCE); 
 
     }
 
-    function testMinimumDollarIsFive() public view { // we can pick the functions from the FundMe contract we want ot test
-    // when tesing we must use the `test` in front of the function name
+    function testMinimumDollarIsFive() public view { 
         assertEq(fundMe.MINIMUM_USD(), 5e18); // This test specifically checks that the  `uint256 public constant MINIMUM_USD = 5 * 10 ** 18;` in the FundMe contract is equal to 5e18
 
     }
